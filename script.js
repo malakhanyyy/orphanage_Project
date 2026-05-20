@@ -1,6 +1,5 @@
 /* ── SERVER API CONFIG ── */
-// ⚠️ IMPORTANT: Paste your actual Vercel backend URL below. Don't forget the '/api' at the end!
-const API_BASE = 'https://oprphanage-server.vercel.app/api'; 
+const API_BASE = 'https://oprphanage-server.vercel.app/api';
 
 /* ── AUDIO SYNTHESIZER ENGINE (Web Audio API) ── */
 let audioCtx;
@@ -56,8 +55,8 @@ function playSpace() {
 
 function stopAllAudio() {
     currentAudioNodes.forEach(n => {
-        try { n.stop(); } catch (e) {}
-        try { n.disconnect(); } catch (e) {}
+        try { n.stop(); } catch (e) { }
+        try { n.disconnect(); } catch (e) { }
     });
     currentAudioNodes = [];
     document.querySelectorAll('.sound-btn').forEach(btn => btn.classList.remove('playing'));
@@ -79,7 +78,7 @@ function toggleSound(btn, type) {
 }
 
 /* ── STATE & VARIABLE DECLARATIONS ── */
-let adminKidsList = []; 
+let adminKidsList = [];
 let staffAccounts = [
     { username: 'admin', password: 'admin123', name: 'Principal Hayes', role: 'Administrator' },
     { username: 'guide', password: 'guide123', name: 'Ms. Miller', role: 'Counselor' }
@@ -189,19 +188,18 @@ async function doLogin() {
     const user = document.getElementById('login-username').value.trim();
     const pass = document.getElementById('login-password').value.trim();
     if (!user || !pass) return showCustomAlert("Login Error", "Please provide both username and password.", "danger");
-    
-    // Show loading state
+
     const loginBtn = document.querySelector('.btn-success[onclick="doLogin()"]');
     const originalText = loginBtn.innerHTML;
     loginBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Authenticating...';
-    
+
     try {
         const res = await fetch(`${API_BASE}/signin`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ username: user, password: pass })
         });
-        
+
         const data = await res.json();
         if (!res.ok) {
             loginBtn.innerHTML = originalText;
@@ -284,7 +282,7 @@ function configurePortal(age) {
 
     document.getElementById('journal-input').placeholder = isTeen ? "What's on your mind today?" : "Once upon a time...";
     document.getElementById('chat-input').placeholder = isTeen ? "Message Buddy..." : "Type to Buddy...";
-    
+
     const gamesGrid = document.getElementById('games-grid-container');
     if (isTeen) {
         gamesGrid.innerHTML = `
@@ -347,20 +345,20 @@ function configurePortal(age) {
 /* ── LOAD SAVED DATA INTO UI ── */
 function renderJournalHistory() {
     const timeline = document.getElementById('journal-timeline');
-    timeline.innerHTML = ''; 
+    timeline.innerHTML = '';
 
     if (currentUser && currentUser.history && currentUser.history.length > 0) {
         currentUser.history.forEach(item => {
             const entry = document.createElement('div');
             entry.className = 'journal-entry';
-            
+
             let moodSpan = '';
             let mainText = item.text;
-            
+
             if (item.text.includes('| "')) {
                 const parts = item.text.split(' | "');
                 const moodText = parts[0].replace('Mood: ', '');
-                mainText = parts[1].slice(0, -1); 
+                mainText = parts[1].slice(0, -1);
                 moodSpan = `<span style="float:right; color:var(--action); font-weight:800; background:#eef9ff; padding:5px 12px; border-radius:12px;">${moodText}</span>`;
             }
 
@@ -376,22 +374,22 @@ function renderJournalHistory() {
 
 function loadChatHistory() {
     const box = document.getElementById('chat-history');
-    box.innerHTML = ''; 
-    
+    box.innerHTML = '';
+
     const isTeen = currentUser && currentUser.age >= 12;
     const welcomeMsg = isTeen ? "Hey there, I'm Buddy! How are things going today?" : "Beep boop! Hi there, I'm Buddy! 😊";
-    
+
     box.innerHTML = `<div class="bubble bot"><i class="fa-solid fa-robot" style="margin-right: 8px; color: var(--action)"></i>${welcomeMsg}</div>`;
     portalChatHistory = [{ role: 'system', content: BUDDY_SYSTEM }];
-    
+
     if (currentUser && currentUser.chatHistory && currentUser.chatHistory.length > 0) {
         currentUser.chatHistory.forEach(msg => {
-            portalChatHistory.push(msg); 
-            
+            portalChatHistory.push(msg);
+
             const type = msg.role === 'user' ? 'user' : 'bot';
             const b = document.createElement('div');
-            b.className = `bubble ${type}`; 
-            
+            b.className = `bubble ${type}`;
+
             if (type === 'bot') {
                 b.innerHTML = `<i class="fa-solid fa-robot" style="margin-right: 8px; color: var(--action)"></i>${msg.content}`;
             } else {
@@ -400,7 +398,7 @@ function loadChatHistory() {
             box.appendChild(b);
         });
     }
-    box.scrollTop = box.scrollHeight; 
+    box.scrollTop = box.scrollHeight;
 }
 
 function launchStudentPortal() {
@@ -418,7 +416,7 @@ function launchStudentPortal() {
 
     configurePortal(currentUser.age);
     switchAppTab('student', 'journal', document.querySelector('#nav-student .app-nav-btn'));
-    
+
     renderJournalHistory();
     loadChatHistory();
     updateHUD();
@@ -518,7 +516,7 @@ function renderAdminAlerts() {
 function resolveAlert(kidIndex, alertIndex) {
     adminKidsList[kidIndex].alerts.splice(alertIndex, 1);
     if (adminKidsList[kidIndex].alerts.length === 0) adminKidsList[kidIndex].status = "Stable";
-    
+
     fetch(`${API_BASE}/user/update`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -582,7 +580,7 @@ function downloadSelectedKids() {
     if (checkboxes.length === 0) return showCustomAlert('Hold on!', 'Please select at least one profile.', 'danger');
     const selectedData = Array.from(checkboxes).map(cb => adminKidsList[cb.value]);
     const headers = ['Name', 'Username', 'Age', 'Avatar', 'Level', 'Status', 'Last Login', 'Logs Count'];
-    const csvRows = selectedData.map(kid => [ `"${kid.name}"`, `"${kid.username}"`, kid.age, `"${kid.avatar}"`, kid.level, `"${kid.status}"`, `"${kid.lastLogin}"`, kid.history ? kid.history.length : 0 ].join(','));
+    const csvRows = selectedData.map(kid => [`"${kid.name}"`, `"${kid.username}"`, kid.age, `"${kid.avatar}"`, kid.level, `"${kid.status}"`, `"${kid.lastLogin}"`, kid.history ? kid.history.length : 0].join(','));
     const dlAnchor = document.createElement('a');
     dlAnchor.setAttribute("href", "data:text/csv;charset=utf-8," + encodeURIComponent([headers.join(','), ...csvRows].join('\n')));
     dlAnchor.setAttribute("download", "SafeHaven_Export.csv");
@@ -782,8 +780,8 @@ function saveJournalEntry(e) {
 
     if (currentUser) {
         currentUser.history.unshift({ date: `Today ${dateStr}`, text: `Mood: ${currentMood} | "${msg}"` });
-        syncDatabase(); 
-        
+        syncDatabase();
+
         checkSafetyWithAI(msg).then(result => {
             const scanUI = document.getElementById(entryId);
             if (result.status === "FLAGGED" || result.status === "AI_ERROR") {
@@ -851,7 +849,7 @@ async function sendChatMessage() {
         });
         loader.remove();
         if (!response.ok) throw new Error("Connection failed");
-        
+
         const data = await response.json();
         const output = data.reply;
 

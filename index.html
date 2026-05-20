@@ -2,16 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>SafeHaven | Reflect, Relax, Recharge</title>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Link to external CSS -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- ══════════════════ FULL-SCREEN AUTHENTICATION PORTAL ══════════════════ -->
 <div id="auth-wrapper" style="min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px;">
     
     <div style="text-align: center; margin-bottom: 35px;" class="slide-up">
@@ -23,27 +21,19 @@
 
     <div class="auth-card pop-in delay-1" style="width: 100%; max-width: 450px; background: white; border: var(--ui-border-w) solid var(--ui-border-color); border-radius: var(--ui-radius-xl); padding: 40px; box-shadow: var(--ui-shadow-hover); text-align: left;">
         
-        <!-- STUDENT LOGIN FORM -->
         <div id="form-login">
             <h2 style="font-size:2rem; color:var(--text-dark); font-weight:800; text-align:center; margin-bottom: 25px;">Student Portal</h2>
             <div class="form-group">
-                <label>Student's Name</label>
-                <div class="input-wrapper"><i class="fa-solid fa-user"></i><input type="text" id="login-username" class="kid-input" placeholder="e.g. alex15" value="alex15"></div>
+                <label>Username</label>
+                <div class="input-wrapper"><i class="fa-solid fa-user"></i><input type="text" id="login-username" class="kid-input" placeholder="e.g. alex15"></div>
             </div>
             <div class="form-group">
                 <label>Password</label>
-                <div class="input-wrapper"><i class="fa-solid fa-lock"></i><input type="password" id="login-password" class="kid-input" placeholder="••••••••" value="123" onkeydown="if(event.key==='Enter')doLogin()"></div>
+                <div class="input-wrapper"><i class="fa-solid fa-lock"></i><input type="password" id="login-password" class="kid-input" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()"></div>
             </div>
             <button class="btn-kid btn-success" style="width: 100%; font-size: 1.3rem; padding: 16px; margin-top: 10px;" onclick="doLogin()">Enter SafeHaven <i class="fa-solid fa-arrow-right"></i></button>
-            
-            <div style="background: var(--bg-sky); padding: 15px; border-radius: var(--ui-radius-sm); border: 2px dashed var(--border-dark); margin-top: 25px; text-align: center;">
-                <p style="font-size:0.95rem; color:var(--text-muted); font-weight:700; margin-bottom: 5px;">Test Profiles:</p>
-                <p style="font-size:0.9rem; color:var(--action); font-weight:700; margin:0;">Teen Theme (15y): alex15 / 123</p>
-                <p style="font-size:0.9rem; color:var(--primary); font-weight:700; margin:0;">Kid Theme (9y): mia9 / 123</p>
-            </div>
         </div>
 
-        <!-- STAFF LOGIN FORM -->
         <div id="form-staff" class="hidden" style="text-align: left;">
             <div style="text-align: center; margin-bottom: 30px;">
                 <div class="secure-badge"><i class="fa-solid fa-shield-halved"></i> Encrypted Access</div>
@@ -55,7 +45,7 @@
                 <label style="font-size:0.95rem; color:#475569; text-transform: uppercase; letter-spacing: 0.5px;">Staff Username</label>
                 <div class="input-wrapper">
                     <i class="fa-solid fa-id-badge" style="color: #64748b;"></i>
-                    <input type="text" id="staff-username" class="staff-input" placeholder="e.g. admin" value="admin">
+                    <input type="text" id="staff-username" class="staff-input" placeholder="e.g. admin">
                 </div>
             </div>
             
@@ -63,7 +53,7 @@
                 <label style="font-size:0.95rem; color:#475569; text-transform: uppercase; letter-spacing: 0.5px;">Password</label>
                 <div class="input-wrapper">
                     <i class="fa-solid fa-lock" style="color: #64748b;"></i>
-                    <input type="password" id="staff-password" class="staff-input" placeholder="••••••••" value="admin123" onkeydown="if(event.key==='Enter')doStaffLogin()">
+                    <input type="password" id="staff-password" class="staff-input" placeholder="••••••••" onkeydown="if(event.key==='Enter')doStaffLogin()">
                 </div>
             </div>
             
@@ -82,7 +72,6 @@
     </div>
 </div>
 
-<!-- ══════════════════ SYSTEM COMPONENT MODALS ══════════════════ -->
 <div id="custom-alert-overlay" class="modal-overlay hidden" style="z-index: 9999;">
     <div class="auth-card pop-in" id="custom-alert-card" style="max-width: 400px; padding: 35px 25px;">
         <div id="custom-alert-icon" style="font-size: 4rem; margin-bottom: 15px; animation: bounce 2s infinite;"></div>
@@ -145,10 +134,8 @@
     </div>
 </div>
 
-<!-- ══════════════════ DASHBOARD APPARATUS LAYOUT ══════════════════ -->
 <div id="app-view" class="app-layout hidden">
     <aside class="app-sidebar">
-        <!-- Student Sidebar -->
         <div id="nav-student" class="sidebar-nav hidden">
             <button class="app-nav-btn active delay-1" onclick="switchAppTab('student','journal',this)"><span class="nav-icon"><i class="fa-solid fa-book-open" style="color:var(--action)"></i></span> <span id="nav-journal-text">Journal</span></button>
             <button class="app-nav-btn delay-2" onclick="switchAppTab('student','lifesync',this)"><span class="nav-icon"><i class="fa-solid fa-heart-pulse" style="color:var(--danger)"></i></span> <span id="nav-lifesync-text">Habits</span></button>
@@ -158,7 +145,6 @@
             <button class="app-nav-btn delay-2" onclick="switchAppTab('student','calm',this)"><span class="nav-icon"><i class="fa-solid fa-headphones" style="color:#00cec9"></i></span> <span id="nav-calm-text">Focus Rm</span></button>
             <button class="app-nav-btn delay-3" style="border-color:var(--danger); color:var(--danger); margin-top:auto;" onclick="showCustomConfirm('Logging Out', 'Are you sure you want to leave your session?', logoutApp)"><span class="nav-icon"><i class="fa-solid fa-door-open"></i></span> Logout</button>
         </div>
-        <!-- Admin Sidebar -->
         <div id="nav-admin" class="sidebar-nav hidden">
             <button class="app-nav-btn active delay-1" onclick="switchAppTab('admin','dashboard',this)"><span class="nav-icon"><i class="fa-solid fa-chart-pie" style="color:var(--action)"></i></span> Desk</button>
             <button class="app-nav-btn delay-2" onclick="switchAppTab('admin','alerts',this)"><span class="nav-icon"><i class="fa-solid fa-bell" style="color:var(--danger)"></i></span> Alerts</button>
@@ -185,7 +171,6 @@
         </header>
 
         <div class="app-content slide-up">
-            <!-- 📓 REVEAL TAB MODULES -->
             <div id="student-journal-tab" class="tab-panel">
                 <h2 class="tab-title" id="title-journal"><i class="fa-solid fa-book-journal-whills"></i> Daily Journal</h2>
                 <div class="mood-selector">
@@ -268,7 +253,6 @@
                 </div>
             </div>
 
-            <!-- 📊 ADMIN tabs -->
             <div id="admin-dashboard-tab" class="tab-panel hidden">
                 <h2 class="tab-title" style="color:var(--action)"><i class="fa-solid fa-chart-pie"></i> Operations Desk</h2>
                 <div style="display:flex; gap:20px; margin-bottom:25px; flex-wrap:wrap;">
@@ -289,7 +273,6 @@
                     <div style="flex:2; min-width:400px; display:flex; flex-direction:column; gap:15px;" class="delay-4 slide-up">
                         <h3 style="font-size:1.3rem; color:var(--text-dark); margin:0; font-weight:800; text-transform:uppercase;">Weekly Facility Mood</h3>
                         
-                        <!-- CHART -->
                         <div class="mood-chart-container" id="mood-chart">
                             <div class="mood-bar-wrapper">
                                 <div class="mood-bar" data-h="60" style="background:var(--success)"><div class="mood-tooltip">Great (60%)</div></div>
@@ -397,7 +380,6 @@
     </main>
 </div>
 
-<!-- Link to external JS -->
 <script src="script.js"></script>
 </body>
 </html>

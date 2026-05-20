@@ -1,5 +1,5 @@
 /* ── SERVER API CONFIG ── */
-const API_BASE = 'http://localhost:3000/api';
+const API_BASE = 'https://oprphanage-server.vercel.app/api';
 
 /* ── AUDIO SYNTHESIZER ENGINE (Web Audio API) ── */
 let audioCtx;

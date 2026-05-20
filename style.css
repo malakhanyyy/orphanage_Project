@@ -662,6 +662,8 @@ body.app-active {
     flex-direction: column;
     gap: 20px;
     min-width: 0;
+    min-height: 0;
+    /* Ensures inner scrolling works */
     position: relative;
 }
 
@@ -1215,18 +1217,32 @@ body.app-active {
     overflow: hidden;
 }
 
+/* ── MOBILE SCROLLING FIXES ── */
 @media (max-width: 900px) {
     body.app-active {
         padding: 0;
+        height: 100dvh;
     }
 
     .app-layout {
-        height: 100vh;
+        height: 100dvh;
         width: 100%;
         border-radius: 0;
         gap: 10px;
         padding: 10px;
         flex-direction: column;
+    }
+
+    .app-main {
+        min-height: 0;
+        flex-grow: 1;
+    }
+
+    .app-content {
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        padding: 20px;
+        border-radius: 16px;
     }
 
     .app-sidebar {
@@ -1261,11 +1277,6 @@ body.app-active {
         flex-direction: column;
         gap: 15px;
         padding: 15px;
-        border-radius: 16px;
-    }
-
-    .app-content {
-        padding: 20px;
         border-radius: 16px;
     }
 

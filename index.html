@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SafeHaven | Reflect, Relax, Recharge</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Link to external CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ══════════════════ FULL-SCREEN AUTHENTICATION PORTAL ══════════════════ -->
+<div id="auth-wrapper" style="min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px;">
+    
+    <div style="text-align: center; margin-bottom: 35px;" class="slide-up">
+        <div style="font-size: 3.5rem; font-weight: 800; color: var(--text-dark); display: flex; align-items: center; justify-content: center; gap: 15px; letter-spacing: -1px;">
+            <i class="fa-solid fa-seedling" style="color: var(--success); animation: float 5s ease-in-out infinite;"></i> SafeHaven
+        </div>
+        <p style="font-size: 1.3rem; color: var(--text-muted); font-weight: 700; margin-top: 10px;">Reflect, Relax, & Recharge.</p>
+    </div>
+
+    <div class="auth-card pop-in delay-1" style="width: 100%; max-width: 450px; background: white; border: var(--ui-border-w) solid var(--ui-border-color); border-radius: var(--ui-radius-xl); padding: 40px; box-shadow: var(--ui-shadow-hover); text-align: left;">
+        
+        <!-- STUDENT LOGIN FORM -->
+        <div id="form-login">
+            <h2 style="font-size:2rem; color:var(--text-dark); font-weight:800; text-align:center; margin-bottom: 25px;">Student Portal</h2>
+            <div class="form-group">
+                <label>Student's Name</label>
+                <div class="input-wrapper"><i class="fa-solid fa-user"></i><input type="text" id="login-username" class="kid-input" placeholder="e.g. alex15" value="alex15"></div>
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <div class="input-wrapper"><i class="fa-solid fa-lock"></i><input type="password" id="login-password" class="kid-input" placeholder="••••••••" value="123" onkeydown="if(event.key==='Enter')doLogin()"></div>
+            </div>
+            <button class="btn-kid btn-success" style="width: 100%; font-size: 1.3rem; padding: 16px; margin-top: 10px;" onclick="doLogin()">Enter SafeHaven <i class="fa-solid fa-arrow-right"></i></button>
+            
+            <div style="background: var(--bg-sky); padding: 15px; border-radius: var(--ui-radius-sm); border: 2px dashed var(--border-dark); margin-top: 25px; text-align: center;">
+                <p style="font-size:0.95rem; color:var(--text-muted); font-weight:700; margin-bottom: 5px;">Test Profiles:</p>
+                <p style="font-size:0.9rem; color:var(--action); font-weight:700; margin:0;">Teen Theme (15y): alex15 / 123</p>
+                <p style="font-size:0.9rem; color:var(--primary); font-weight:700; margin:0;">Kid Theme (9y): mia9 / 123</p>
+            </div>
+        </div>
+
+        <!-- STAFF LOGIN FORM -->
+        <div id="form-staff" class="hidden" style="text-align: left;">
+            <div style="text-align: center; margin-bottom: 30px;">
+                <div class="secure-badge"><i class="fa-solid fa-shield-halved"></i> Encrypted Access</div>
+                <h2 style="font-size:2rem; color:#0f172a; font-weight:800; font-family: 'Nunito', sans-serif; margin-bottom: 5px;">Staff Portal</h2>
+                <p style="color:var(--text-muted); font-size:1rem; font-weight:600;">Please authenticate to access the dashboard.</p>
+            </div>
+            
+            <div class="form-group">
+                <label style="font-size:0.95rem; color:#475569; text-transform: uppercase; letter-spacing: 0.5px;">Staff Username</label>
+                <div class="input-wrapper">
+                    <i class="fa-solid fa-id-badge" style="color: #64748b;"></i>
+                    <input type="text" id="staff-username" class="staff-input" placeholder="e.g. admin" value="admin">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label style="font-size:0.95rem; color:#475569; text-transform: uppercase; letter-spacing: 0.5px;">Password</label>
+                <div class="input-wrapper">
+                    <i class="fa-solid fa-lock" style="color: #64748b;"></i>
+                    <input type="password" id="staff-password" class="staff-input" placeholder="••••••••" value="admin123" onkeydown="if(event.key==='Enter')doStaffLogin()">
+                </div>
+            </div>
+            
+            <button class="btn-staff" onclick="doStaffLogin()"><i class="fa-solid fa-right-to-bracket"></i> Authenticate Session</button>
+            
+            <div style="background: #f1f5f9; padding: 12px; border-radius: 8px; margin-top: 25px; text-align: center; border: 1px solid #e2e8f0;">
+                <p style="font-size:0.85rem; color:#64748b; font-weight:700; margin-bottom: 5px; text-transform: uppercase;">System Test Accounts</p>
+                <p style="font-size:0.9rem; color:#0f172a; font-weight:700; margin:0;">Admin: <span style="color:#3b82f6;">admin</span> / <span style="color:#3b82f6;">admin123</span></p>
+                <p style="font-size:0.9rem; color:#0f172a; font-weight:700; margin:0;">Counselor: <span style="color:#10b981;">guide</span> / <span style="color:#10b981;">guide123</span></p>
+            </div>
+
+            <p style="margin-top: 25px; font-size: 1rem; color: #64748b; cursor: pointer; font-weight: 700; text-align:center; transition: color 0.2s;" onmouseover="this.style.color='#0f172a'" onmouseout="this.style.color='#64748b'" onclick="switchAuthTab('login')"><i class="fa-solid fa-arrow-left"></i> Back to Student Login</p>
+        </div>
+
+        <p id="staff-link" style="margin-top: 30px; font-size: 1rem; color: var(--text-muted); cursor: pointer; font-weight: 700; text-align: center; text-decoration: underline;" onclick="switchAuthTab('staff')">Educator / Staff Access</p>
+    </div>
+</div>
+
+<!-- ══════════════════ SYSTEM COMPONENT MODALS ══════════════════ -->
+<div id="custom-alert-overlay" class="modal-overlay hidden" style="z-index: 9999;">
+    <div class="auth-card pop-in" id="custom-alert-card" style="max-width: 400px; padding: 35px 25px;">
+        <div id="custom-alert-icon" style="font-size: 4rem; margin-bottom: 15px; animation: bounce 2s infinite;"></div>
+        <h2 id="custom-alert-title" style="font-size: 1.8rem; margin-bottom: 10px; font-weight: 800;">Title</h2>
+        <p id="custom-alert-msg" style="font-size: 1.1rem; color: var(--text-muted); margin-bottom: 25px; line-height: 1.5; font-weight: 600;"></p>
+        <div id="custom-alert-buttons" style="display: flex; gap: 15px; justify-content: center;"></div>
+    </div>
+</div>
+
+<div id="admin-modal-bg" class="modal-overlay hidden" style="z-index: 3000;">
+    <div id="kid-form-modal" class="auth-card hidden pop-in">
+        <button class="close-btn" onclick="closeAdminModals()"><i class="fa-solid fa-xmark"></i></button>
+        <h2 id="kid-form-title" style="font-size:2rem;margin-bottom:20px;color:var(--text-dark);font-weight:800;"><i class="fa-solid fa-user-plus" style="color:var(--success)"></i> Add Profile</h2>
+        <input type="hidden" id="edit-kid-index" value="-1">
+        
+        <div class="form-group">
+            <label>Student's Name</label>
+            <div class="input-wrapper"><i class="fa-solid fa-user"></i><input type="text" id="kid-form-name" class="kid-input" placeholder="e.g. Noah"></div>
+        </div>
+        <div class="form-group">
+            <label>Username</label>
+            <div class="input-wrapper"><i class="fa-solid fa-at"></i><input type="text" id="kid-form-username" class="kid-input" placeholder="e.g. noah123"></div>
+        </div>
+        <div class="form-group">
+            <label>Age (Determines UI Theme)</label>
+            <div class="input-wrapper"><i class="fa-solid fa-cake-candles"></i><input type="number" id="kid-form-age" class="kid-input" placeholder="e.g. 14"></div>
+        </div>
+        <div class="form-group">
+            <label>Assign Avatar</label>
+            <div class="avatar-selector" id="kid-form-avatar">
+                <div class="avatar-opt active" onclick="pickAdminAvatar(this,'fa-cat')"><i class="fa-solid fa-cat"></i></div>
+                <div class="avatar-opt" onclick="pickAdminAvatar(this,'fa-frog')"><i class="fa-solid fa-frog"></i></div>
+                <div class="avatar-opt" onclick="pickAdminAvatar(this,'fa-ghost')"><i class="fa-solid fa-ghost"></i></div>
+                <div class="avatar-opt" onclick="pickAdminAvatar(this,'fa-user-ninja')"><i class="fa-solid fa-user-ninja"></i></div>
+                <div class="avatar-opt" onclick="pickAdminAvatar(this,'fa-user-astronaut')"><i class="fa-solid fa-user-astronaut"></i></div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Initial Password</label>
+            <div class="input-wrapper"><i class="fa-solid fa-key"></i><input type="text" id="kid-form-password" class="kid-input" placeholder="e.g. apple123"></div>
+        </div>
+        <button class="btn-kid btn-success" style="width:100%; font-size:1.15rem;" onclick="saveKidForm()"><i class="fa-solid fa-check"></i> Save Details</button>
+    </div>
+
+    <div id="history-kid-modal" class="auth-card hidden pop-in" style="max-width:900px;width:95%;max-height:85vh;flex-direction:column;text-align:left; padding:30px;">
+        <button class="close-btn" onclick="closeAdminModals()"><i class="fa-solid fa-xmark"></i></button>
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; border-bottom:3px solid var(--ui-border-color); padding-bottom:15px;">
+            <h2 style="font-size:2rem;color:var(--text-dark);margin:0;font-weight:800;" id="history-title">Profile History</h2>
+        </div>
+        <div style="overflow-y:auto; flex-grow:1; padding-right:10px; display:flex; gap:25px; flex-wrap: wrap;">
+            <div style="flex:1; min-width:300px;">
+                <h3 style="margin-bottom:15px; color:var(--text-dark); font-size:1.3rem; display:flex; align-items:center; gap:8px;"><i class="fa-solid fa-book" style="color:var(--success)"></i> Journal Log</h3>
+                <div id="history-content"></div>
+            </div>
+            <div style="flex:1; min-width:300px;">
+                <h3 style="margin-bottom:15px; color:var(--text-dark); font-size:1.3rem; display:flex; align-items:center; gap:8px;"><i class="fa-solid fa-robot" style="color:var(--action)"></i> AI Transcripts</h3>
+                <div id="history-chat-content"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ══════════════════ DASHBOARD APPARATUS LAYOUT ══════════════════ -->
+<div id="app-view" class="app-layout hidden">
+    <aside class="app-sidebar">
+        <!-- Student Sidebar -->
+        <div id="nav-student" class="sidebar-nav hidden">
+            <button class="app-nav-btn active delay-1" onclick="switchAppTab('student','journal',this)"><span class="nav-icon"><i class="fa-solid fa-book-open" style="color:var(--action)"></i></span> <span id="nav-journal-text">Journal</span></button>
+            <button class="app-nav-btn delay-2" onclick="switchAppTab('student','lifesync',this)"><span class="nav-icon"><i class="fa-solid fa-heart-pulse" style="color:var(--danger)"></i></span> <span id="nav-lifesync-text">Habits</span></button>
+            <button class="app-nav-btn delay-3" onclick="switchAppTab('student','quests',this)"><span class="nav-icon"><i class="fa-solid fa-list-check" style="color:var(--success)"></i></span> <span id="nav-quests-text">Goals</span></button>
+            <button class="app-nav-btn delay-4" onclick="switchAppTab('student','buddy',this)"><span class="nav-icon"><i class="fa-solid fa-robot" style="color:var(--primary)"></i></span> <span id="nav-buddy-text">Chat</span></button>
+            <button class="app-nav-btn delay-1" onclick="switchAppTab('student','arcade',this)"><span class="nav-icon"><i class="fa-solid fa-gamepad" style="color:var(--purple)"></i></span> <span id="nav-arcade-text">Decompress</span></button>
+            <button class="app-nav-btn delay-2" onclick="switchAppTab('student','calm',this)"><span class="nav-icon"><i class="fa-solid fa-headphones" style="color:#00cec9"></i></span> <span id="nav-calm-text">Focus Rm</span></button>
+            <button class="app-nav-btn delay-3" style="border-color:var(--danger); color:var(--danger); margin-top:auto;" onclick="showCustomConfirm('Logging Out', 'Are you sure you want to leave your session?', logoutApp)"><span class="nav-icon"><i class="fa-solid fa-door-open"></i></span> Logout</button>
+        </div>
+        <!-- Admin Sidebar -->
+        <div id="nav-admin" class="sidebar-nav hidden">
+            <button class="app-nav-btn active delay-1" onclick="switchAppTab('admin','dashboard',this)"><span class="nav-icon"><i class="fa-solid fa-chart-pie" style="color:var(--action)"></i></span> Desk</button>
+            <button class="app-nav-btn delay-2" onclick="switchAppTab('admin','alerts',this)"><span class="nav-icon"><i class="fa-solid fa-bell" style="color:var(--danger)"></i></span> Alerts</button>
+            <button class="app-nav-btn delay-3" onclick="switchAppTab('admin','students',this)"><span class="nav-icon"><i class="fa-solid fa-users" style="color:var(--success)"></i></span> Profiles</button>
+            <button class="app-nav-btn delay-4" onclick="switchAppTab('admin','settings',this)"><span class="nav-icon"><i class="fa-solid fa-gear" style="color:var(--text-muted)"></i></span> Config</button>
+            <button class="app-nav-btn delay-1" style="border-color:var(--danger); color:var(--danger); margin-top:auto;" onclick="showCustomConfirm('Exiting Staff Portal', 'Ready to sign out?', logoutApp)"><span class="nav-icon"><i class="fa-solid fa-door-open"></i></span> Exit</button>
+        </div>
+    </aside>
+
+    <main class="app-main">
+        <header class="app-header pop-in">
+            <div class="user-profile">
+                <div class="user-avatar" id="header-avatar"><i class="fa-solid fa-user"></i></div>
+                <div>
+                    <h3 style="font-size:1.6rem;color:var(--text-dark); margin:0; font-weight:800;" id="header-name">Student</h3>
+                    <p style="font-size:1rem;color:var(--text-muted); margin:0; font-weight:600;" id="header-role">Level 1</p>
+                </div>
+            </div>
+            <div id="student-broadcast-banner" class="broadcast-banner"><i class="fa-solid fa-bell"></i> <span id="broadcast-text">Announcement</span></div>
+            <div id="student-hud" class="level-hud hidden"><span class="star-pill" id="star-pill"><span id="hud-stars">0</span> <i class="fa-solid fa-star"></i></span></div>
+            <button id="admin-header-exit" class="btn-kid btn-outline hidden" style="padding:10px 20px;color:var(--danger);border-color:var(--danger)" onclick="showCustomConfirm('Exiting Staff Portal', 'Ready to sign out?', logoutApp)">
+                <i class="fa-solid fa-right-from-bracket"></i> Exit Portal
+            </button>
+        </header>
+
+        <div class="app-content slide-up">
+            <!-- 📓 REVEAL TAB MODULES -->
+            <div id="student-journal-tab" class="tab-panel">
+                <h2 class="tab-title" id="title-journal"><i class="fa-solid fa-book-journal-whills"></i> Daily Journal</h2>
+                <div class="mood-selector">
+                    <span style="font-size:1.1rem;font-weight:700; color:var(--text-dark);">Current State:</span>
+                    <button class="mood-btn" onclick="selectMood(this,'Great 🌟')">Great 🌟</button>
+                    <button class="mood-btn" onclick="selectMood(this,'Good 😊')">Good 😊</button>
+                    <button class="mood-btn" onclick="selectMood(this,'Okay 😐')">Okay 😐</button>
+                    <button class="mood-btn" onclick="selectMood(this,'Drained 🌧️')">Drained 🌧️</button>
+                </div>
+                <textarea class="journal-textarea" id="journal-input" placeholder="What's on your mind today?"></textarea>
+                <button class="btn-kid btn-primary" style="align-self:flex-end;" onclick="saveJournalEntry(event)"><i class="fa-solid fa-lock"></i> Save Private Entry</button>
+                <div id="journal-timeline" style="margin-top:30px"></div>
+            </div>
+
+            <div id="student-lifesync-tab" class="tab-panel hidden">
+                <h2 class="tab-title" id="title-lifesync"><i class="fa-solid fa-heart-pulse"></i> Routine Sync</h2>
+                <p id="lifesync-desc" style="font-size:1.1rem;margin-bottom:20px;font-weight:600; color:var(--text-muted);"></p>
+                <div style="display:flex; gap:25px; flex-wrap:wrap; margin-bottom: 20px;">
+                    <div style="flex:1;" class="custom-card delay-1 slide-up">
+                        <div style="padding: 25px;">
+                            <h3 style="color:var(--text-dark); font-size:1.5rem; margin-bottom:10px; font-weight:800;"><i class="fa-solid fa-shoe-prints" style="color:var(--success);"></i> Activity</h3>
+                            <div class="progress-bar-container">
+                                <div id="steps-progress" style="background:var(--success); width:20%; height:100%; transition:width 0.8s;"></div>
+                            </div>
+                            <p style="font-weight:700; font-size:1.1rem; color:var(--text-muted);"><span id="steps-text">2,000</span> / 10,000 Steps</p>
+                            <div style="display:flex; gap:10px; margin-top:20px;">
+                                <input type="number" id="steps-input" class="kid-input" placeholder="Add steps">
+                                <button class="btn-kid btn-success" onclick="logHealth('steps', event)"><i class="fa-solid fa-plus"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="flex:1;" class="custom-card delay-2 slide-up">
+                        <div style="padding: 25px;">
+                            <h3 style="color:var(--text-dark); font-size:1.5rem; margin-bottom:10px; font-weight:800;"><i class="fa-solid fa-moon" style="color:var(--purple);"></i> Rest</h3>
+                            <div class="progress-bar-container">
+                                <div id="sleep-progress" style="background:var(--purple); width:50%; height:100%; transition:width 0.8s;"></div>
+                            </div>
+                            <p style="font-weight:700; font-size:1.1rem; color:var(--text-muted);"><span id="sleep-text">4</span> / 8 Hours</p>
+                            <div style="display:flex; gap:10px; margin-top:20px;">
+                                <input type="number" id="sleep-input" class="kid-input" placeholder="Add hours">
+                                <button class="btn-kid btn-purple" onclick="logHealth('sleep', event)"><i class="fa-solid fa-plus"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="student-quests-tab" class="tab-panel hidden">
+                <h2 class="tab-title" id="title-quests"><i class="fa-solid fa-list-check"></i> Daily Goals</h2>
+                <p id="quests-desc" style="font-size:1.1rem;margin-bottom:25px;font-weight:600; color:var(--text-muted);"></p>
+                <div class="quest-item delay-1 slide-up" id="q1"><div><i class="fa-solid fa-glass-water" style="color:var(--action); margin-right:12px;"></i> Hydrate: Drink 3 glasses of water</div><div class="quest-btn" onclick="completeQuest('q1',5,event)"><i class="fa-solid fa-check"></i></div></div>
+                <div class="quest-item delay-2 slide-up" id="q2"><div><i class="fa-solid fa-book" style="color:var(--primary); margin-right:12px;"></i> Reflect: Log an entry in your journal</div><div class="quest-btn" onclick="completeQuest('q2',10,event)"><i class="fa-solid fa-check"></i></div></div>
+                <div class="quest-item delay-3 slide-up" id="q3"><div><i class="fa-solid fa-wind" style="color:var(--success); margin-right:12px;"></i> Focus: Complete a breathing exercise</div><div class="quest-btn" onclick="completeQuest('q3',12,event)"><i class="fa-solid fa-check"></i></div></div>
+            </div>
+
+            <div id="student-buddy-tab" class="tab-panel hidden">
+                <h2 class="tab-title" id="title-buddy"><i class="fa-solid fa-robot"></i> AI Companion</h2>
+                <div class="chat-container" id="chat-history"></div>
+                <div style="display:flex;gap:12px;margin-top:auto;">
+                    <input type="text" class="kid-input" id="chat-input" placeholder="Message Buddy..." onkeydown="if(event.key==='Enter')sendChatMessage()">
+                    <button class="btn-kid btn-action" style="padding:12px 25px;" onclick="sendChatMessage()"><i class="fa-solid fa-paper-plane"></i></button>
+                </div>
+            </div>
+
+            <div id="student-arcade-tab" class="tab-panel hidden">
+                <h2 class="tab-title" id="title-arcade"><i class="fa-solid fa-gamepad"></i> Decompression Zone</h2>
+                <div class="games-grid" id="games-grid-container"></div>
+            </div>
+
+            <div id="student-calm-tab" class="tab-panel hidden">
+                <h2 class="tab-title" id="title-calm"><i class="fa-solid fa-headphones"></i> Focus Room</h2>
+                <p id="calm-desc" style="font-size:1.1rem;margin-bottom:25px; font-weight:600; color:var(--text-muted);"></p>
+                <div style="display:flex; gap:20px; flex-wrap:wrap;">
+                    <button class="sound-btn delay-1 pop-in" onclick="toggleSound(this, 'Rain')"><i class="fa-solid fa-cloud-rain" style="color:var(--action);font-size:2.5rem;"></i> Deep Rain</button>
+                    <button class="sound-btn delay-2 pop-in" onclick="toggleSound(this, 'Forest')"><i class="fa-solid fa-tree" style="color:var(--success);font-size:2.5rem;"></i> Pine Forest</button>
+                    <button class="sound-btn delay-3 pop-in" onclick="toggleSound(this, 'Space')"><i class="fa-solid fa-meteor" style="color:var(--purple);font-size:2.5rem;"></i> Cosmic Void</button>
+                </div>
+                <div style="text-align:center; margin-top:50px;">
+                    <div id="calm-visualizer" style="display:none; font-size:4rem; color:var(--text-muted); animation:pulseIcon 2.5s infinite ease-in-out;"><i class="fa-solid fa-compact-disc"></i></div>
+                </div>
+            </div>
+
+            <!-- 📊 ADMIN tabs -->
+            <div id="admin-dashboard-tab" class="tab-panel hidden">
+                <h2 class="tab-title" style="color:var(--action)"><i class="fa-solid fa-chart-pie"></i> Operations Desk</h2>
+                <div style="display:flex; gap:20px; margin-bottom:25px; flex-wrap:wrap;">
+                    <div class="stat-card delay-1 slide-up">
+                        <h3>Total Profiles</h3>
+                        <h1 id="dash-total-kids" style="color:var(--action)">0</h1>
+                    </div>
+                    <div class="stat-card delay-2 slide-up">
+                        <h3>Logs Processed</h3>
+                        <h1 id="dash-total-logs" style="color:var(--success)">0</h1>
+                    </div>
+                    <div class="stat-card delay-3 slide-up">
+                        <h3>Active Alerts</h3>
+                        <h1 id="dash-total-alerts" style="color:var(--danger)">0</h1>
+                    </div>
+                </div>
+                <div style="display:flex; gap:25px; flex-wrap:wrap;">
+                    <div style="flex:2; min-width:400px; display:flex; flex-direction:column; gap:15px;" class="delay-4 slide-up">
+                        <h3 style="font-size:1.3rem; color:var(--text-dark); margin:0; font-weight:800; text-transform:uppercase;">Weekly Facility Mood</h3>
+                        
+                        <!-- CHART -->
+                        <div class="mood-chart-container" id="mood-chart">
+                            <div class="mood-bar-wrapper">
+                                <div class="mood-bar" data-h="60" style="background:var(--success)"><div class="mood-tooltip">Great (60%)</div></div>
+                                <span class="mood-label">Mon</span>
+                            </div>
+                            <div class="mood-bar-wrapper">
+                                <div class="mood-bar" data-h="85" style="background:var(--action)"><div class="mood-tooltip">Excellent (85%)</div></div>
+                                <span class="mood-label">Tue</span>
+                            </div>
+                            <div class="mood-bar-wrapper">
+                                <div class="mood-bar" data-h="35" style="background:var(--danger)"><div class="mood-tooltip">Drained (35%)</div></div>
+                                <span class="mood-label">Wed</span>
+                            </div>
+                            <div class="mood-bar-wrapper">
+                                <div class="mood-bar" data-h="70" style="background:var(--primary)"><div class="mood-tooltip">Good (70%)</div></div>
+                                <span class="mood-label">Thu</span>
+                            </div>
+                            <div class="mood-bar-wrapper">
+                                <div class="mood-bar" data-h="90" style="background:var(--success)"><div class="mood-tooltip">Great (90%)</div></div>
+                                <span class="mood-label">Fri</span>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div style="flex:1; min-width:300px; display:flex; flex-direction:column; gap:15px;" class="delay-4 slide-up">
+                        <div class="custom-card" style="padding:20px; flex-grow:1; display:flex; flex-direction:column; min-height:0;">
+                            <h3 style="font-size:1.2rem; margin-bottom:15px; color:var(--text-dark); font-weight:800; text-transform:uppercase;"><i class="fa-solid fa-clock-rotate-left" style="color:var(--purple)"></i> Live Activity</h3>
+                            <div id="live-activity-feed" style="overflow-y:auto; padding-right:5px; flex-grow:1;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="admin-alerts-tab" class="tab-panel hidden">
+                <h2 class="tab-title" style="color:var(--danger)"><i class="fa-solid fa-bell"></i> Alerts & Broadcast</h2>
+                <div style="display:flex; gap:25px; flex-wrap:wrap;">
+                    <div style="flex:2; min-width:400px;" class="delay-1 slide-up">
+                        <h3 style="font-size:1.4rem; margin-bottom:15px; color:var(--danger); font-weight:800;"><i class="fa-solid fa-triangle-exclamation"></i> Action Required</h3>
+                        <div class="custom-card" style="overflow-x:auto; padding:5px;">
+                            <table class="admin-table">
+                                <thead><tr><th>Student</th><th>Last Login</th><th>Flagged Context</th><th>Status</th></tr></thead>
+                                <tbody id="admin-alerts-tbody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div style="flex:1; min-width:300px;" class="delay-2 slide-up">
+                        <div class="custom-card" style="padding:25px;">
+                            <h3 style="font-size:1.4rem;margin-bottom:10px; font-weight:800; color:var(--action);"><i class="fa-solid fa-bullhorn"></i> Global Broadcast</h3>
+                            <p style="color:var(--text-muted); margin-bottom:15px; font-weight:600; font-size:0.95rem; line-height:1.4;">Push a banner notification to active sessions.</p>
+                            <select id="broadcast-target" class="kid-select" style="margin-bottom:15px;">
+                                <option value="all">All Portals</option>
+                            </select>
+                            <textarea class="journal-textarea" id="broadcast-input" placeholder="Type notification..." style="height:100px; padding:12px;"></textarea>
+                            <button class="btn-kid btn-primary" style="width:100%;margin-top:10px; font-size:1.1rem; padding:12px;" onclick="sendBroadcast()">Send</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="admin-students-tab" class="tab-panel hidden">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:15px;">
+                    <h2 class="tab-title" style="margin:0;color:var(--success)"><i class="fa-solid fa-users"></i> Member Directory</h2>
+                    <div style="display:flex; gap:12px; align-items:center; flex-wrap: wrap;">
+                        <div class="input-wrapper" style="width: 220px;">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <input type="text" id="kid-search" class="kid-input" placeholder="Search..." onkeyup="filterKids()">
+                        </div>
+                        <button class="btn-kid btn-outline" onclick="downloadSelectedKids()"><i class="fa-solid fa-download"></i> Export CSV</button>
+                        <button class="btn-kid btn-action" style="color:var(--text-dark);" onclick="openAddKidModal()"><i class="fa-solid fa-plus"></i> New</button>
+                    </div>
+                </div>
+                <div class="custom-card delay-1 slide-up" style="overflow-x:auto; padding:5px;">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th style="width:50px; text-align:center;">
+                                    <label class="checkbox-container"><input type="checkbox" id="select-all-kids" onclick="toggleAllKids(this)"></label>
+                                </th>
+                                <th>Avatar</th>
+                                <th>Name</th>
+                                <th>Level</th>
+                                <th>Status</th>
+                                <th>Operations</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-kids-tbody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="admin-settings-tab" class="tab-panel hidden">
+                <h2 class="tab-title" style="color:var(--text-muted)"><i class="fa-solid fa-gear"></i> System Config</h2>
+                <div class="custom-card delay-1 slide-up" style="padding:30px; margin-bottom: 20px;">
+                    <h3 style="font-size:1.4rem;margin-bottom:15px; font-weight:800;">Organization Details</h3>
+                    <div class="input-wrapper" style="margin-bottom:20px; max-width: 400px;"><i class="fa-solid fa-building"></i><input type="text" class="kid-input" value="District 4 High School" style="font-size:1.1rem; padding:12px 12px 12px 45px;"></div>
+                    <button class="btn-kid btn-success" onclick="showCustomAlert('Saved', 'Organization settings updated.', 'success')"><i class="fa-solid fa-floppy-disk"></i> Apply</button>
+                </div>
+                <div class="custom-card delay-2 slide-up" style="padding:30px; border-color: var(--danger); box-shadow: var(--ui-shadow-hover);">
+                    <h3 style="font-size:1.4rem; color:var(--danger); margin-bottom:10px; font-weight:800;"><i class="fa-solid fa-triangle-exclamation"></i> Data Deletion</h3>
+                    <p style="color:var(--text-muted); font-size:1.1rem; margin-bottom:20px; font-weight:600;">Irreversibly erase all student logs, chat history, and active alerts.</p>
+                    <button class="btn-kid btn-danger" onclick="showCustomConfirm('Warning!', 'Are you sure? This cannot be undone.', () => { showCustomAlert('Wiped!', 'System reset successfully.', 'success'); })"><i class="fa-solid fa-trash-can"></i> Factory Reset</button>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<!-- Link to external JS -->
+<script src="script.js"></script>
+</body>
+</html>
